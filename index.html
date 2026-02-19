@@ -636,7 +636,7 @@
       <div class="q-list" id="questionsList"></div>
     </div>
 
-    <button class="save-btn" id="saveBtn">&#8595; Save Scorecard as Text File</button>
+    <button class="save-btn" id="saveBtn">&#8595; Save Scorecard as PDF</button>
 
   </div>
 </div>
@@ -926,20 +926,12 @@ function renderScorecard(profile, sr, est, nOver) {
 
 document.getElementById('saveBtn').addEventListener('click', function() {
   if (!lastResult) return;
-  var p = lastResult.profile, sr = lastResult.scoreResult, est = lastResult.estimates, n = lastResult.targetN || lastResult.profile.target_n;
-  var lines = ['REPUTABLE HEALTH - RECRUITMENT SCORECARD','='.repeat(60),'Study: '+(p.study_name||'Unknown'),'Type: '+(p.study_type||'-')+' · '+(p.n_arms||1)+' arm(s)','Target N: '+(n||'Unknown'),'Duration: '+(p.duration_days||'?')+' days','','DIFFICULTY SCORE: '+sr.total+'/100 - '+sr.band.label.toUpperCase(),sr.band.note,'','-'.repeat(60),'SCORE BREAKDOWN'];
-  sr.breakdown.forEach(function(r) { lines.push('  '+r.dim.padEnd(24)+String(Math.round(r.pts)).padStart(3)+' / '+r.max+'  '+r.note); });
-  lines.push('','-'.repeat(60),'RECRUITMENT PROJECTIONS','  Est. days: '+est.tLo+'-'+est.tHi,'  Ad spend: '+(est.needsAds?'YES':'NO'));
-  if (est.needsAds) lines.push('  Est. spend: $'+est.spendLo.toLocaleString()+' - $'+est.spendHi.toLocaleString());
-  lines.push('','-'.repeat(60),'ELIGIBILITY RISK FLAGS');
-  (p.recruitment_risk_flags||[]).forEach(function(f) { lines.push('\n  '+(f.severity==='red'?'🔴':f.severity==='yellow'?'🟡':'🟢')+' '+f.factor+'\n     '+f.detail); });
-  lines.push('','-'.repeat(60),'SCREENING QUESTIONS ('+(p.screening_questions||[]).length+')');
-  (p.screening_questions||[]).forEach(function(q,i) { lines.push('  '+(i+1)+'. '+q); });
-  lines.push('','='.repeat(60),'Generated: '+new Date().toLocaleDateString());
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type:'text/plain' }));
-  a.download = 'scorecard_'+(p.study_name||'study').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'.txt';
-  a.click();
+  var style = document.createElement('style');
+  style.id = 'print-style';
+  style.textContent = '@media print { nav, .hero, .run-btn, .save-btn, .upload-zone, .file-badge, .options-row, #progress, #errorBox { display:none!important; } .scorecard { display:block!important; } body { background:#0e0f0c!important; } @page { margin: 16mm; } .card { break-inside: avoid; } }';
+  document.head.appendChild(style);
+  window.print();
+  setTimeout(function() { var el = document.getElementById('print-style'); if (el) el.remove(); }, 1500);
 });
 
 runBtn.addEventListener('click', async function() {
