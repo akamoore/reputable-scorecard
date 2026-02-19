@@ -1,0 +1,2175 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "created": "2026-02-18",
+    "db_size_at_creation": 867,
+    "db_growth_rate_per_week": 63,
+    "blended_cpo_historical": 25.76,
+    "total_historical_onboarded": 867,
+    "rubric_version": "1.0",
+    "notes": [
+      "actual_difficulty is a normalized 0-100 score derived from historical CPO where known, or estimated from rubric where CPO unknown.",
+      "predicted_difficulty is the rubric-computed score (base_score * db_multiplier), pre-calibration.",
+      "Fields marked MISSING require operator input before this file is finalized.",
+      "Wearable scores: Oura=4, AppleWatch=6, Fitbit=8, Garmin=12, SamsungRing=15, WHOOP=18.",
+      "Multi-device studies use lowest-difficulty device score (largest eligible pool).",
+      "Study type scores: VEP=3, RCT=8, RWE=12.",
+      "Brand recognition: known_consumer=2, mid_tier_niche=5, unknown_clinical=9.",
+      "Sample size scores: 1-25=5, 26-50=10, 51-100=15, 101-200=20, 201-500=25.",
+      "Screening Q scores: 1-5=2, 6-10=5, 11-15=7, 16+=10.",
+      "DB coverage multiplier: <1%=0.7, 1-5%=1.0, 5-15%=1.3, >15%=1.6."
+    ]
+  },
+  "studies": [
+    {
+      "study_id": "S001",
+      "study_name": "Everyday Dose Pilot RCT",
+      "brand": "Everyday Dose",
+      "category": "functional_coffee",
+      "file_ref": "Enhanced_Brew_Formula_EBF_RCT",
+      "status": "completed",
+      "report_available": true,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "active",
+          "placebo_decaf"
+        ],
+        "blinded": true,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true
+      },
+      "recruitment": {
+        "target_n": 80,
+        "actual_n_enrolled": 82,
+        "actual_n_completers": 50,
+        "completion_rate_pct": 71,
+        "target_age_min": 21,
+        "target_age_max": 65,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "caffeine_drinker"
+        ],
+        "key_exclusions": [
+          "no_oura_ring"
+        ],
+        "notes": "71% completion rate. 92% female, avg age 44. Predominantly affluent, educated sample.",
+        "target_n_note": "Participant Target 80 (40/arm), Recruitment cutoff 70",
+        "actual_n_onboarded": 80,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 310,
+        "days_to_recruit": 49,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 28,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": 70,
+        "sample_size_score": 15,
+        "study_type": "RCT",
+        "study_type_score": 8,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 8,
+        "eligibility_strictness_notes": "Age restriction 21-65, must drink caffeine, ~3 exclusions. Moderate.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 9,
+        "screening_question_score": null,
+        "base_score_excl_screening": 40,
+        "db_coverage_pct": 8.1,
+        "db_coverage_multiplier": 1.3,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder - refine with seasonal data",
+        "screening_q_note": "EBF RCT Pilot screening: age+caffeine, good health, US/English, allergy, other trial, CV history, Oura, pregnant, caffeine reduction",
+        "difficulty_score": 37,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "actual_cpo": 13.09,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 1046.99,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": 0,
+        "cash_value": 50,
+        "cash_notes": "$50 Amazon gift card (direct)",
+        "other_rewards": [
+          "Personalized health insights"
+        ],
+        "total_participant_value": 50,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S002",
+      "study_name": "Enhanced Brew Formula Phase II RCT (3-arm)",
+      "brand": "Everyday Dose",
+      "category": "functional_coffee",
+      "file_ref": "Enhanced_Brew__A_Coffee_Study",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "everyday_dose_45mg",
+          "decaf_placebo",
+          "regular_coffee"
+        ],
+        "blinded": true,
+        "duration_days": 56,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "3-arm powered RCT. Total budget $128,150. Power analysis: N=189 (63/arm) with 15% dropout buffer."
+      },
+      "recruitment": {
+        "target_n": 192,
+        "actual_n_enrolled": 520,
+        "actual_n_completers": null,
+        "completion_rate_pct": null,
+        "target_age_min": 45,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "caffeine_drinker",
+          "age_45_plus"
+        ],
+        "key_exclusions": [
+          "non_oura_owner"
+        ],
+        "notes": "Older cohort than pilot (45+ vs 21-65). 8-week intervention. IRB not required (continuing existing approval).",
+        "target_n_note": "189 (63/arm \u00d7 3 arms), Recruitment cutoff 192",
+        "actual_n_onboarded": 192,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 1932,
+        "days_to_recruit": 23,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 28,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": 189,
+        "sample_size_score": 20,
+        "study_type": "RCT",
+        "study_type_score": 8,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 10,
+        "eligibility_strictness_notes": "Age 45+, caffeine drinker required, Oura owner, ~3 exclusions.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 8,
+        "screening_question_score": null,
+        "base_score_excl_screening": 47,
+        "db_coverage_pct": 21.8,
+        "db_coverage_multiplier": 1.6,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Coffee Study (3-arm): age 45+, good health, US/English, allergy, other trial, CV history, pregnant, caffeine reduction",
+        "difficulty_score": 47,
+        "difficulty_band": "Hard",
+        "cpo_estimate": "$18\u2013$30"
+      },
+      "actuals": {
+        "actual_cpo": 16.59,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 3184.93,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "2-month supply of Enhanced Brew / regular / decaf coffee",
+        "product_value": 50,
+        "cash_value": 100,
+        "cash_notes": "$100+ via Heartbeats redeemable for Amazon gift cards",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 150,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S003",
+      "study_name": "HOP Box Women's Longevity",
+      "brand": "HOP Box",
+      "category": "womens_health_supplement",
+      "file_ref": "HOP_Box_Women_s_Longevity",
+      "status": "recruiting",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 90,
+        "has_labs": true,
+        "has_shipped_product": true,
+        "notes": "Includes TruDiagnostic at-home blood tests (2x). Oura Ring required. Intro call with Head of Clinical Research required."
+      },
+      "recruitment": {
+        "target_n": 35,
+        "target_n_flag": "MISSING - not stated in landing page. Operator must retrieve from study records.",
+        "actual_n_enrolled": 42,
+        "actual_n_completers": null,
+        "completion_rate_pct": null,
+        "target_age_min": 35,
+        "target_age_max": 60,
+        "target_gender": "female",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "female",
+          "age_35_to_60",
+          "oura_ring_30day_baseline"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding"
+        ],
+        "notes": "Women only 35-60. Requires at-home blood draw via TruDiagnostics. High-value incentive ($1600 product + $50 GC).",
+        "target_n_note": "Confirmed 35 from screening and IRB protocol",
+        "actual_n_onboarded": 18,
+        "onboard_rate_pct": 51.4,
+        "total_leads": 192,
+        "scorecard_note": "Opened Feb 12 \u2014 monitoring through Thursday before escalating"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING - retrieve target N from study records.",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 13,
+        "eligibility_strictness_notes": "Women only (demographic restriction), narrow age 35-60, 30-day Oura baseline required, at-home lab test required. Estimated 4-5 exclusions.",
+        "brand_recognition": "unknown_clinical",
+        "brand_recognition_score": 9,
+        "screening_question_count": 14,
+        "screening_question_score": null,
+        "base_score_excl_screening": 38,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING - need target N.",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "HOP Box: comply, woman 35-60, Oura, GLP-1 meds, NAD+ supplements, ingredient overlap, diabetes/liver/kidney, cancer, psychiatric, allergy, prior trial, pregnant, follow study, at-home blood test",
+        "difficulty_score": 49,
+        "difficulty_band": "Hard",
+        "cpo_estimate": "$18\u2013$30"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "3-month supply of HOP Box supplement protocol",
+        "product_value": 600,
+        "cash_value": 50,
+        "cash_notes": "$50+ via Heartbeats",
+        "other_rewards": [
+          "2\u00d7 TruDiagnostic at-home epigenetic tests ($1,000 value)",
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 1650,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S004",
+      "study_name": "LyfeFuel Daily Essentials Shake",
+      "brand": "LyfeFuel",
+      "category": "nutrition_shake",
+      "file_ref": "LyfeFuel_Daily_Essentials_Shake",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Must pause other multivitamins and protein powders during study. Very simple protocol."
+      },
+      "recruitment": {
+        "target_n": 25,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 52,
+        "actual_n_completers": null,
+        "target_age_min": 18,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "oura_ring_owner"
+        ],
+        "key_exclusions": [
+          "known_ingredient_allergies"
+        ],
+        "notes": "Very broad eligibility. Adults 18+. Must own Oura Ring. Minimal exclusions.",
+        "target_n_note": "23-24 target (Recruitment 23, Participant 24)",
+        "actual_n_onboarded": 25,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 102,
+        "days_to_recruit": 2,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 28,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 5,
+        "eligibility_strictness_notes": "Adults 18+, no demographic restriction, ~2 exclusions. One of the least restrictive studies.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 6,
+        "screening_question_score": null,
+        "base_score_excl_screening": 26,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING - need target N.",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "LyfeFuel: age 18+, willing to consume daily, owns Oura, allergy/sensitivity, medical condition/restriction, [1 additional question]",
+        "difficulty_score": 20,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "LyfeFuel Daily Essentials Shake supply",
+        "product_value": 70,
+        "cash_value": 10,
+        "cash_notes": "$10+ via Heartbeats",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 80,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S005",
+      "study_name": "Melatonin Sleep Study (Somato Phytomelatonin RCT)",
+      "brand": "Somato by Nutraland USA",
+      "category": "sleep_supplement",
+      "file_ref": "Melatonin_Sleep_Study",
+      "status": "recruiting",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "somato_phytomelatonin",
+          "synthetic_melatonin",
+          "placebo"
+        ],
+        "blinded": true,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "3-arm RCT. IRB filed. Preceded by a 22-participant RWE pilot. Landing page showed 297 enrolled / 3 spots remaining (target ~300, then capped at 240 per protocol). KNOWN OUTLIER: $71.88 CPO with confounding baseline bug."
+      },
+      "recruitment": {
+        "target_n": 240,
+        "actual_n_enrolled": 312,
+        "actual_n_enrolled_notes": "Landing page showed 297 at time of capture; IRB protocol specifies 240 target.",
+        "actual_n_completers": null,
+        "completion_rate_pct": null,
+        "target_age_min": 18,
+        "target_age_max": 70,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "oura_ring_gen3_owner",
+          "oura_80pct_adherence_past_30_days",
+          "no_supplement_changes_past_30_days"
+        ],
+        "key_exclusions": [
+          "current_sleep_supplements_30_days",
+          "current_sleep_medications_30_days",
+          "pregnant_or_breastfeeding",
+          "substance_use_disorder_less_than_12mo_sobriety",
+          "severe_unstable_medical_conditions",
+          "mood_affecting_medications",
+          "nightshade_allergy_or_sensitivity"
+        ],
+        "exclusion_count": 7,
+        "notes": "Very strict eligibility. Requires specific Oura sleep score threshold. Long exclusion list targeting sleep supplement/medication users.",
+        "target_n_note": "Confirmed 240 (80/arm \u00d7 3 arms)",
+        "actual_n_onboarded": 90,
+        "onboard_rate_pct": 37.5,
+        "total_leads": 1240,
+        "scorecard_note": "~150 lost to baseline bug (fix ETA this week), ~48 to eligibility question. Est. completion ~Mar 15, 2026. Est. remaining cost at standard CPO ($18.60): $2,790"
+      },
+      "wearable": {
+        "device": "Oura",
+        "model_required": "Gen3",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 30,
+        "wearable_eligibility_condition_note": "Sleep score <75 threshold originally set but removed mid-study \u2014 was disqualifying too large a portion of applicants. No wearable data gate currently active."
+      },
+      "scoring_inputs": {
+        "sample_size": 240,
+        "sample_size_score": 25,
+        "study_type": "RCT",
+        "study_type_score": 8,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 18,
+        "eligibility_strictness_notes": "7 exclusion categories (many multi-item), hard positive criterion (sleep score <75), 30-day Oura adherence check, biomarker threshold. One of the most restrictive studies.",
+        "brand_recognition": "unknown_clinical",
+        "brand_recognition_score": 9,
+        "screening_question_count": 11,
+        "screening_question_count_confidence": "estimated",
+        "screening_question_count_notes": "Estimated ~12 Qs from IRB exclusion criteria + inclusion checks. Actual count not confirmed from a questionnaire doc.",
+        "screening_question_score": 7,
+        "base_score": 71,
+        "db_coverage_pct": 27.7,
+        "db_coverage_multiplier": 1.6,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "predicted_difficulty": 113.6,
+        "predicted_difficulty_capped": 100,
+        "screening_q_note": "Melatonin: age 18-70, Oura, sleep concerns, stable health, sleep meds/supplements, pregnant, drug/alcohol, severe conditions, circadian meds, nightshade allergy, [1 additional]",
+        "difficulty_score": 47,
+        "difficulty_band": "Hard",
+        "cpo_estimate": "$18\u2013$30"
+      },
+      "actuals": {
+        "actual_cpo": 71.88,
+        "actual_difficulty": null,
+        "actual_difficulty_notes": "Estimated from CPO relative to blended avg ($25.76). ($71.88 - $25.76) / ($196 - $25.76) * 100 \u2248 27% of way from avg to max. Normalized ~72 accounting for ProleevaMax as ceiling.",
+        "ad_spend": 6469.62,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "outlier": true
+      },
+      "reward": {
+        "product_description": "Full supply of active supplement or placebo",
+        "product_value": null,
+        "cash_value": 50,
+        "cash_notes": "$50 Amazon gift cards + bonus opportunities",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 50,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S006",
+      "study_name": "Mimio Energy and Metabolic Health",
+      "brand": "Mimio",
+      "category": "metabolic_health_supplement",
+      "file_ref": "Mimio_Energy_and_Metabolic_Health",
+      "status": "active",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 30,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Fasting mimetic metabolite formula. WHOOP required."
+      },
+      "recruitment": {
+        "target_n": 12,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 30,
+        "actual_n_completers": null,
+        "target_age_min": 35,
+        "target_age_max": 75,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "whoop_owner_with_30day_baseline"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding"
+        ],
+        "notes": "Broad age range 30-75. WHOOP required with 30-day baseline. Very short landing page \u2014 minimal eligibility detail visible.",
+        "target_n_note": "Recruitment 12, Participant 13",
+        "actual_n_onboarded": 12,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": 17,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": null,
+        "multi_device_accepted": true,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 14,
+        "washout_period_days": 30,
+        "accepted_devices": [
+          "WHOOP",
+          "Oura",
+          "Fitbit"
+        ],
+        "wearable_note": "Originally WHOOP-only; updated to WHOOP/Oura/Fitbit mid-recruitment due to slow enrollment. 30d baseline + active subscription required."
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "WHOOP",
+        "wearable_score": 18,
+        "eligibility_strictness_score": 7,
+        "eligibility_strictness_notes": "Age 30-75, WHOOP with 30-day baseline, not pregnant. Low exclusion count. Moderate due to WHOOP requirement.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 4,
+        "screening_question_score": null,
+        "base_score_excl_screening": 42,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING - need target N.",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Mimio: age 35-75, active lifestyle, longevity interest, [1 additional - possible blank]",
+        "difficulty_score": 12,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "30-day supply of Mimio fasting-associated metabolite formula",
+        "product_value": 100,
+        "cash_value": 10,
+        "cash_notes": "2,000 Heartbeats \u2248 $10 Amazon gift card",
+        "other_rewards": [
+          "Personalized energy/metabolic insights"
+        ],
+        "total_participant_value": 110,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S007",
+      "study_name": "Neuvana VNS Sleep Study",
+      "brand": "Neuvana",
+      "category": "vagus_nerve_stimulation_device",
+      "file_ref": "Neuvana",
+      "status": "coming_soon",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 42,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Device study (Neuvana VNS, $449 retail). WHOOP required. Proposal also proposed a secondary Fitbit-based broad biomarker study (S2 \u2014 not counted separately here)."
+      },
+      "recruitment": {
+        "target_n": 40,
+        "actual_n_enrolled": 0,
+        "actual_n_completers": null,
+        "completion_rate_pct": null,
+        "target_age_min": 25,
+        "target_age_max": 65,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "whoop_owner_active_sub",
+          "english_speaking"
+        ],
+        "key_exclusions": [
+          "implanted_electrical_devices",
+          "history_of_seizures"
+        ],
+        "exclusion_count": 2,
+        "notes": "Hard safety exclusion: no implanted electrical devices (e.g., pacemakers). WHOOP-only. Age 25-65.",
+        "target_n_note": "From Neuvana Proposal: N=40 (accounting for ~15% attrition), Study 1 sleep-focused",
+        "actual_n_onboarded": 0,
+        "scorecard_note": "Coming soon \u2014 organic/VEP"
+      },
+      "wearable": {
+        "device": "WHOOP",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 0
+      },
+      "scoring_inputs": {
+        "sample_size": 40,
+        "sample_size_score": 10,
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "WHOOP",
+        "wearable_score": 18,
+        "eligibility_strictness_score": 10,
+        "eligibility_strictness_notes": "Age 25-65, WHOOP required, 2 hard medical exclusions (implanted devices, seizures). Moderate-high due to WHOOP rarity.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": null,
+        "screening_question_score": null,
+        "screening_q_flag": "MISSING - no screening questionnaire doc found.",
+        "base_score_excl_screening": 55,
+        "db_coverage_pct": 4.6,
+        "db_coverage_multiplier": 1.0,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "predicted_difficulty_range": "55-65 (without screening Q score)",
+        "screening_q_note": "No screening PDF found. Proposal suggests Study 1: healthy adults 25-65 with impaired sleep, Oura Ring, N=40",
+        "difficulty_score": 29,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": null,
+        "actual_cpo_flag": "MISSING - retrieve from study records.",
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "MISSING - awaiting CPO data.",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Neuvana VNS device (yours to keep)",
+        "product_value": 449,
+        "cash_value": 50,
+        "cash_notes": "$50+ via Heartbeats",
+        "other_rewards": [
+          "Personalized WHOOP health insights"
+        ],
+        "total_participant_value": 499,
+        "keep_device": true,
+        "device_kept": "Neuvana VNS Xen device ($449)"
+      }
+    },
+    {
+      "study_id": "S008",
+      "study_name": "Pain Relief ProleevaMax",
+      "brand": "ProleevaMax",
+      "category": "pain_relief_supplement",
+      "file_ref": "Pain_Relief_ProleevaMax",
+      "status": "recruiting",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 60,
+        "has_labs": true,
+        "has_shipped_product": true,
+        "notes": "At-home blood draw (hs-CRP) at start and end by licensed medical professional. WHOOP required. KNOWN OUTLIER: $196 CPO \u2014 highest of all studies."
+      },
+      "recruitment": {
+        "target_n": 35,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 102,
+        "actual_n_completers": null,
+        "completion_rate_pct": null,
+        "target_age_min": 18,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "chronic_pain_or_inflammatory_condition_3_months_minimum",
+          "whoop_owner_active_sub"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding",
+          "known_proleevamax_ingredient_allergies"
+        ],
+        "exclusion_count": 2,
+        "notes": "HARD POSITIVE CRITERION: must have chronic pain or inflammatory condition lasting 3+ months. This dramatically shrinks the eligible pool. WHOOP required (largest wearable barrier in rubric). At-home blood draw adds friction. Landing page had 'FINAL SPOTS' urgency \u2014 suggests difficult recruitment.",
+        "target_n_note": "Confirmed 35 from screening and IRB",
+        "actual_n_onboarded": 29,
+        "onboard_rate_pct": 82.9,
+        "total_leads": 719,
+        "scorecard_note": "OUTLIER \u2014 WHOOP issue, lab bottleneck. Near completion \u2014 targeting existing users from insufficient baseline list. Est. completion ~End of Feb 2026."
+      },
+      "wearable": {
+        "device": "WHOOP",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING - retrieve from study records.",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "WHOOP",
+        "wearable_score": 18,
+        "eligibility_strictness_score": 17,
+        "eligibility_strictness_notes": "Hard positive criterion (chronic pain 3+ months), WHOOP required, at-home blood draw required. Despite low formal exclusion count, the positive criterion creates severe pool restriction.",
+        "brand_recognition": "unknown_clinical",
+        "brand_recognition_score": 9,
+        "screening_question_count": 12,
+        "screening_question_score": null,
+        "base_score_excl_screening": 56,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING - need target N.",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "ProleevaMax: age 18+, chronic pain/inflammation, good health otherwise, pregnant, liver/kidney/cancer, ingredient allergy, opioid/corticosteroids, drug/alcohol, psychiatric disorder, prior Proleevamax use, WHOOP, [1 additional]",
+        "difficulty_score": 73,
+        "difficulty_band": "Very Hard",
+        "cpo_estimate": "$30\u2013$60"
+      },
+      "actuals": {
+        "actual_cpo": 196.08,
+        "actual_difficulty": null,
+        "actual_difficulty_notes": "Defined as ceiling/reference point. ProleevaMax = hardest-to-recruit study in historical dataset. Set to 95 (not 100 to preserve calibration headroom).",
+        "ad_spend": 5686.18,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "outlier": true
+      },
+      "reward": {
+        "product_description": "2-month supply of ProleevaMax",
+        "product_value": 99,
+        "cash_value": 100,
+        "cash_notes": "$100+ via Heartbeats",
+        "other_rewards": [
+          "Personalized WHOOP health insights"
+        ],
+        "total_participant_value": 199,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S009",
+      "study_name": "Peptide Supplement Sleep and Recovery",
+      "brand": "Undisclosed Peptide Brand",
+      "category": "sleep_supplement",
+      "file_ref": "Peptide_Supplement_Sleep_and_Recovery",
+      "status": "active",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "active_peptide",
+          "placebo"
+        ],
+        "blinded": true,
+        "duration_days": 42,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Includes Creyos Cognitive Assessment ($65 value). 2-arm RCT with placebo. Brand not identified in landing page."
+      },
+      "recruitment": {
+        "target_n": 120,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 338,
+        "actual_n_completers": null,
+        "target_age_min": 18,
+        "target_age_max": 65,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "experience_occasional_sleep_issues",
+          "oura_ring_30day_baseline"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding"
+        ],
+        "notes": "Requires 'occasional sleep issues' \u2014 soft positive criterion. Ages 18-65. Oura with 30-day baseline required.",
+        "target_n_note": "Recruitment 122, Participant 120 (60/arm \u00d7 2 arms)",
+        "actual_n_onboarded": 120,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 1135,
+        "days_to_recruit": 17,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RCT",
+        "study_type_score": 8,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 12,
+        "eligibility_strictness_notes": "Age 18-65, soft positive criterion (occasional sleep issues), 30-day Oura baseline, ~2 exclusions. Moderate restriction.",
+        "brand_recognition": "unknown_clinical",
+        "brand_recognition_score": 9,
+        "screening_question_count": 17,
+        "screening_question_score": null,
+        "base_score_excl_screening": 33,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Peptide: age 18-65, other trial, smoking/alcohol, compliance, lifestyle stability, shift work, diet/exercise consistency, meds moratorium, prior sleep meds, CYP3A4 meds, chronic conditions, complex medical history, caffeine restriction, aromatherapy use, plus 3 additional",
+        "difficulty_score": 45,
+        "difficulty_band": "Hard",
+        "cpo_estimate": "$18\u2013$30"
+      },
+      "actuals": {
+        "actual_cpo": 20.53,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 2464.11,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Full supply of active peptide supplement or placebo",
+        "product_value": 100,
+        "cash_value": 100,
+        "cash_notes": "$100 Amazon gift cards + bonus opportunities",
+        "other_rewards": [
+          "Creyos Cognitive Assessment ($65 value)",
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 265,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S010",
+      "study_name": "Percepta Cognitive Health Study",
+      "brand": "Percepta",
+      "category": "cognitive_health_supplement",
+      "file_ref": "Percepta",
+      "status": "coming_soon",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "active_supplement",
+          "placebo"
+        ],
+        "blinded": true,
+        "duration_days": 180,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "6-month study. Longest duration in portfolio. Requires MCI diagnosis \u2014 very rare hard criterion. Baseline visit required. 'Live independently or with minimal assistance' criterion."
+      },
+      "recruitment": {
+        "target_n": 154,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 0,
+        "actual_n_completers": null,
+        "target_age_min": 40,
+        "target_age_max": 85,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "diagnosed_mild_cognitive_impairment_MCI",
+          "lives_independently",
+          "stable_health_conditions",
+          "oura_ring_owner"
+        ],
+        "key_exclusions": [
+          "not_able_to_commit_6_months"
+        ],
+        "notes": "HARD POSITIVE CRITERION: Must have formal MCI diagnosis. This creates a dramatically small eligible pool within general wellness users. 6-month commitment is major dropout risk.",
+        "target_n_note": "Target N not found in available files. Percepta landing page does not specify.",
+        "actual_n_onboarded": 0,
+        "scorecard_note": "Coming soon \u2014 organic"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 0
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RCT",
+        "study_type_score": 8,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 20,
+        "eligibility_strictness_notes": "Maximum strictness: requires MCI diagnosis, age 40-85, independence requirement, 6-month commitment. Smallest eligible pool of any study.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": null,
+        "screening_question_score": null,
+        "screening_q_flag": "MISSING",
+        "base_score_excl_screening": 37,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "No screening PDF found. Landing page: ages 40-85, MCI diagnosis, Oura Ring, 6-month study, live independently",
+        "difficulty_score": 58,
+        "difficulty_band": "Hard",
+        "cpo_estimate": "$18\u2013$30"
+      },
+      "actuals": {
+        "actual_cpo": null,
+        "actual_cpo_flag": "MISSING - retrieve from study records.",
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "MISSING",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "6-month supply of Percepta supplement",
+        "product_value": null,
+        "cash_value": 300,
+        "cash_notes": "$300+ via Heartbeats",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 300,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S011",
+      "study_name": "Rest and Recharge Hapbee",
+      "brand": "Hapbee",
+      "category": "sleep_stress_device",
+      "file_ref": "Rest__Recharge_Hapbee",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Device study (Hapbee neckband, $299 retail). Oura Ring required. Ultra-low-frequency (ulRFE) technology. Must download both Hapbee and Reputable apps."
+      },
+      "recruitment": {
+        "target_n": 10,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 15,
+        "actual_n_completers": null,
+        "target_age_min": 21,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "oura_ring_owner_active_sub"
+        ],
+        "key_exclusions": [
+          "pacemaker",
+          "pregnant_or_breastfeeding"
+        ],
+        "exclusion_count": 2,
+        "notes": "Very open eligibility. Adults 21+. Oura required. Two standard safety exclusions. Very low barrier study.",
+        "target_n_note": "Confirmed Recruitment 10, Participant 10",
+        "actual_n_onboarded": 10,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": 22,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 0
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 5,
+        "eligibility_strictness_notes": "Adults 21+, Oura required, 2 safety exclusions. Among the least restrictive studies.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 11,
+        "screening_question_score": null,
+        "base_score_excl_screening": 26,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Hapbee: age 21+, new to Hapbee, daily use/logging, no shift work, no recent sleep meds, no untreated sleep disorders, no implanted electronics, not pregnant, no conflicting commitments, [2 additional]",
+        "difficulty_score": 27,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Hapbee neckband device (yours to keep)",
+        "product_value": 299,
+        "cash_value": 10,
+        "cash_notes": "$10+ via Heartbeats",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 309,
+        "keep_device": true,
+        "device_kept": "Hapbee neckband ($299)"
+      }
+    },
+    {
+      "study_id": "S012",
+      "study_name": "Rootless Women's Health",
+      "brand": "Rootless",
+      "category": "womens_health_functional_food",
+      "file_ref": "Rootless__Womens_Health",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 60,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Includes RENPHO smart scale (provided free, weekly body composition scans). Seaweed-based functional food. IRB filed with BeyondBound IRB. Full SAP included."
+      },
+      "recruitment": {
+        "target_n": 50,
+        "actual_n_enrolled": 92,
+        "actual_n_completers": null,
+        "target_age_min": 40,
+        "target_age_max": null,
+        "target_gender": "female",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "female_age_40_plus",
+          "oura_ring_30day_baseline"
+        ],
+        "key_exclusions": [
+          "pregnant_planning_to_become_pregnant_or_breastfeeding",
+          "known_allergy_to_rootless_ingredients_almonds_sesame_quinoa_iodine_shellfish_strawberry_peanut",
+          "diagnosed_SIBO_or_significant_GI_disorder",
+          "chronic_health_condition_diabetes_cardiovascular_thyroid",
+          "participated_in_interventional_study_past_30_days",
+          "unable_or_unwilling_to_comply_with_protocol"
+        ],
+        "exclusion_count": 6,
+        "notes": "Women only, age 40+. RENPHO scale compliance required (\u226570% weekly). 9 screening questions confirmed from IRB Appendix C.",
+        "target_n_note": "Recruitment 52, Participant 50",
+        "actual_n_onboarded": 50,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 165,
+        "days_to_recruit": 19,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "additional_device": "RENPHO_smart_scale_provided",
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": 50,
+        "sample_size_score": 10,
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 15,
+        "eligibility_strictness_notes": "Women only (demographic restriction), age 40+, 6 exclusion criteria, ingredient allergy list, chronic conditions excluded, SIBO excluded, Oura 30-day baseline.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 10,
+        "screening_question_count_confidence": "confirmed",
+        "screening_question_count_source": "IRB Protocol Appendix C",
+        "screening_question_score": 5,
+        "base_score": 51,
+        "db_coverage_pct": 5.8,
+        "db_coverage_multiplier": 1.3,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "predicted_difficulty": 66.3,
+        "screening_q_note": "Rootless: female 40+, daily consumption, Oura, not pregnant, no ingredient allergy, no SIBO/GI, no chronic conditions, no recent trial, no prior Rootless use, [1 additional]",
+        "difficulty_score": 40,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "actual_cpo": 11.65,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 582.58,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "2-month supply of Rootless plant-based bites",
+        "product_value": 100,
+        "cash_value": 100,
+        "cash_notes": "$100+ via Heartbeats",
+        "other_rewards": [
+          "Free RENPHO Smart Scale ($30, yours to keep)",
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 230,
+        "keep_device": true,
+        "device_kept": "RENPHO Smart Scale ($30)"
+      }
+    },
+    {
+      "study_id": "S013",
+      "study_name": "Sleep Mushrooms (Kyolic Sleep Mushrooms+)",
+      "brand": "Kyolic Sleep Mushrooms+",
+      "category": "sleep_supplement",
+      "file_ref": "Sleep_Mushrooms",
+      "status": "active",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Free bottle of Kyolic Sleep Mushrooms+ included ($40 value). Multi-device study \u2014 Oura, Fitbit, OR WHOOP accepted. Lowest eligibility bar of all studies."
+      },
+      "recruitment": {
+        "target_n": 50,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 67,
+        "actual_n_completers": null,
+        "target_age_min": 30,
+        "target_age_max": 60,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "oura_or_fitbit_or_whoop_with_30day_baseline",
+          "interested_in_improving_sleep_quality"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding"
+        ],
+        "exclusion_count": 1,
+        "notes": "Most open study in portfolio. Multi-device eligibility massively expands pool. Adults 18+, English-speaking, US-based. Nearly no hard exclusions.",
+        "target_n_note": "Confirmed 50 (Recruitment and Participant both 50)",
+        "actual_n_onboarded": 50,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": 15,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura_or_Fitbit_or_WHOOP",
+        "multi_device_accepted": true,
+        "accepted_devices": [
+          "Oura",
+          "Fitbit",
+          "WHOOP"
+        ],
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 14,
+        "scoring_note": "Using Oura score (4) as difficulty floor since any of these devices qualifies.",
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "wearable_scoring_note": "Multi-device accepted \u2014 scored at easiest device (Oura=4).",
+        "eligibility_strictness_score": 4,
+        "eligibility_strictness_notes": "Adults 18+, 1 exclusion, multi-device. Least restrictive study.",
+        "brand_recognition": "known_consumer",
+        "brand_recognition_score": 2,
+        "screening_question_count": 4,
+        "screening_question_score": null,
+        "base_score_excl_screening": 22,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Sleep Mushrooms: age 30-60, generally healthy/active, occasional sleep trouble from stress, [1 additional]",
+        "difficulty_score": 20,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Free bottle of Kyolic Sleep Mushrooms+",
+        "product_value": 40,
+        "cash_value": 10,
+        "cash_notes": "2,000 Heartbeats \u2248 $10 Amazon gift card",
+        "other_rewards": [
+          "Personalized 28-day sleep quality insights"
+        ],
+        "total_participant_value": 50,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S014",
+      "study_name": "Sleep Well Stress Less (Sensate Device)",
+      "brand": "Sensate",
+      "category": "sleep_stress_device",
+      "file_ref": "Sleep_Well_Stress_Less_Sensate",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Device study (Sensate neckband, $299 retail). WHOOP required. 10 min/day session protocol. Headphones required."
+      },
+      "recruitment": {
+        "target_n": 25,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 57,
+        "actual_n_completers": null,
+        "target_age_min": 30,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "whoop_owner_active_sub"
+        ],
+        "key_exclusions": [
+          "pacemaker",
+          "pregnant_or_breastfeeding"
+        ],
+        "exclusion_count": 2,
+        "notes": "Age 30+. WHOOP required. Standard safety exclusions only. 60-second pre-screen suggests minimal Qs.",
+        "target_n_note": "Recruitment 25, Participant 24",
+        "actual_n_onboarded": 25,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 150,
+        "days_to_recruit": 5,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "WHOOP",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 0
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "WHOOP",
+        "wearable_score": 18,
+        "eligibility_strictness_score": 7,
+        "eligibility_strictness_notes": "Age 30+, WHOOP required, 2 safety exclusions. Similar to Mimio.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 5,
+        "screening_question_score": null,
+        "base_score_excl_screening": 42,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Sensate: age 30+, daily device use, WHOOP owner, no health sensitivities, [1 additional]",
+        "difficulty_score": 30,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Sensate meditation device (yours to keep)",
+        "product_value": 299,
+        "cash_value": 10,
+        "cash_notes": "$10+ via Heartbeats",
+        "other_rewards": [
+          "Personalized WHOOP health insights"
+        ],
+        "total_participant_value": 309,
+        "keep_device": true,
+        "device_kept": "Sensate device ($299)"
+      }
+    },
+    {
+      "study_id": "S015",
+      "study_name": "Tapping Solutions for Stress Relief",
+      "brand": "The Tapping Solution",
+      "category": "digital_wellness_app",
+      "file_ref": "Tapping_Solutions_for_Stress_Relief",
+      "status": "recruiting",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": null,
+        "duration_flag": "MISSING - duration not stated in landing page. Typical Reputable study would be 28-42 days. Retrieve from study records.",
+        "has_labs": false,
+        "has_shipped_product": false,
+        "notes": "Digital-only study \u2014 app-based intervention, no physical product shipped. Multi-device accepted (Oura/Fitbit/WHOOP). Adults 45+. From context: uses WHOOP for tracking but multiple devices qualify."
+      },
+      "recruitment": {
+        "target_n": 20,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 60,
+        "actual_n_completers": null,
+        "target_age_min": 45,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "age_45_plus",
+          "oura_or_fitbit_or_whoop_30day_baseline"
+        ],
+        "key_exclusions": [],
+        "notes": "Landing page headline says 'WHOOP required' but eligibility lists Oura/Fitbit/WHOOP. Treating as multi-device. Adults 45+. Very minimal exclusion criteria visible. No product to ship reduces friction. $10 GC reward = lowest incentive.",
+        "target_n_note": "Confirmed 20 (Recruitment and Participant both 20)",
+        "actual_n_onboarded": 16,
+        "onboard_rate_pct": 80.0,
+        "scorecard_note": "VEP \u2014 needs 4 more participants. Est. completion ~End of Feb 2026."
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "accepted_devices": [
+          "Oura",
+          "Fitbit",
+          "WHOOP"
+        ],
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "wearable_flag": "CONFLICT: headline says 'WHOOP required' but eligibility text says Oura/Fitbit/WHOOP. Clarify with study records.",
+        "washout_period_days": 14
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "wearable_scoring_note": "Multi-device accepted \u2014 scored at Oura (4). If WHOOP-only confirmed, score = 18.",
+        "eligibility_strictness_score": 8,
+        "eligibility_strictness_notes": "Age 45+, multi-device, ~1 effective exclusion. Age cutoff at 45 is notable but relatively open.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 4,
+        "screening_question_score": null,
+        "base_score_excl_screening": 29,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Tapping: willing to commit daily sessions, no recent study (14 days), generally good health, [1 additional]",
+        "difficulty_score": 16,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": 0,
+        "cash_value": 10,
+        "cash_notes": "2,000 Heartbeats \u2248 $10 (requires \u226570% compliance + completion)",
+        "other_rewards": [
+          "HRV, sleep quality, recovery, and stress data analysis"
+        ],
+        "total_participant_value": 10,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S016",
+      "study_name": "Vampire Serum Skin Renewal (Young Goose Exosome)",
+      "brand": "Young Goose",
+      "category": "skincare_regenerative",
+      "file_ref": "Vampire_Serum_Skin_Renewal",
+      "status": "coming_soon",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 90,
+        "has_labs": false,
+        "has_shipped_product": true,
+        "notes": "Includes AI skin scans via SkinAI platform at Day 0/30/60/90. Oura Ring used for passive recovery/sleep tracking. $150+ GC reward (highest Heartbeat incentive). Broad eligibility."
+      },
+      "recruitment": {
+        "target_n": 35,
+        "target_n_flag": "MISSING - not stated. Retrieve from study records.",
+        "actual_n_enrolled": 0,
+        "actual_n_completers": null,
+        "target_age_min": 35,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "age_35_plus",
+          "oura_ring_owner_active_sub"
+        ],
+        "key_exclusions": [
+          "history_of_skin_cancer",
+          "active_dermatologic_conditions"
+        ],
+        "exclusion_count": 2,
+        "notes": "Adults 35+. Oura required. Two dermatologic exclusions. Open eligibility relative to other studies. AI skin scanning adds novelty appeal. From context: 'broad eligibility and unknown brand' \u2014 expected moderate-low difficulty.",
+        "target_n_note": "Target N not specified in available files. 90-day study, $150 reward.",
+        "actual_n_onboarded": 0,
+        "scorecard_note": "Coming soon \u2014 organic"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 0
+      },
+      "scoring_inputs": {
+        "sample_size": null,
+        "sample_size_score": null,
+        "sample_size_flag": "MISSING",
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 7,
+        "eligibility_strictness_notes": "Age 35+, Oura required, 2 dermatologic exclusions. Moderately open.",
+        "brand_recognition": "unknown_clinical",
+        "brand_recognition_score": 9,
+        "screening_question_count": null,
+        "screening_question_score": null,
+        "screening_q_flag": "MISSING",
+        "base_score_excl_screening": 32,
+        "db_coverage_pct": null,
+        "db_coverage_multiplier": null,
+        "db_coverage_flag": "MISSING",
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder",
+        "screening_q_note": "Screening PDF shows no captured screening questions. Landing page: adults 35+, US, Oura Ring, no skin cancer or active dermatological conditions.",
+        "difficulty_score": 25,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "actual_cpo": null,
+        "actual_cpo_flag": "MISSING - retrieve from study records.",
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "MISSING",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Young Goose Vampire Exosome Serum full study kit",
+        "product_value": null,
+        "cash_value": 150,
+        "cash_notes": "$150+ via Heartbeats",
+        "other_rewards": [
+          "Personalized AI skin imaging insights"
+        ],
+        "total_participant_value": 150,
+        "keep_device": false
+      }
+    },
+    {
+      "study_id": "S017",
+      "study_name": "Vitamin D Boost (Clearlight Wellness Light)",
+      "brand": "Clearlight",
+      "category": "light_therapy_device",
+      "file_ref": "Vitamin_D_Boost_Clearlight",
+      "status": "active",
+      "report_available": false,
+      "design": {
+        "study_type": "RWE",
+        "arms": [
+          "single_arm_open_label"
+        ],
+        "blinded": false,
+        "duration_days": 84,
+        "has_labs": true,
+        "has_shipped_product": true,
+        "notes": "Device study (Clearlight Wellness Light UVB, $799 retail \u2014 kept by participant). At-home blood draws 3x (start/middle/end) by licensed medical professional for vitamin D levels. Skin well-being surveys throughout. Oura Ring tracks sleep/recovery. 13 screening questions confirmed from context."
+      },
+      "recruitment": {
+        "target_n": 20,
+        "actual_n_enrolled": 40,
+        "actual_n_completers": null,
+        "target_n_source": "User context: 'targets 20 participants'",
+        "target_age_min": 30,
+        "target_age_max": 65,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "healthy_adult_at_risk_for_vitamin_D_insufficiency",
+          "oura_ring_owner_active_sub"
+        ],
+        "key_exclusions": [
+          "pregnant_or_breastfeeding",
+          "conditions_contraindicated_for_UVB_exposure"
+        ],
+        "notes": "Soft positive criterion: 'at risk for vitamin D insufficiency' \u2014 hard to verify without lab data upfront. Blood draws add significant logistical friction. Premium device ($799) may increase appeal. Age restriction 30-65.",
+        "target_n_note": "Recruitment 21, Participant 20-21",
+        "actual_n_onboarded": 20,
+        "onboard_rate_pct": 100.0,
+        "total_leads": 30,
+        "days_to_recruit": 64,
+        "scorecard_note": "100% onboarded"
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 30,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": 20,
+        "sample_size_score": 5,
+        "study_type": "RWE",
+        "study_type_score": 12,
+        "wearable": "Oura",
+        "wearable_score": 4,
+        "eligibility_strictness_score": 13,
+        "eligibility_strictness_notes": "Age 30-65, soft positive criterion (vitamin D at-risk), blood draws 3x adds friction, Oura required. Moderate-high due to lab requirement.",
+        "brand_recognition": "mid_tier_niche",
+        "brand_recognition_score": 5,
+        "screening_question_count": 13,
+        "screening_question_count_confidence": "confirmed",
+        "screening_question_count_source": "User-provided context",
+        "screening_question_score": 7,
+        "base_score": 46,
+        "db_coverage_pct": 2.3,
+        "db_coverage_multiplier": 1.0,
+        "seasonality_multiplier": 1.0,
+        "seasonality_flag": "Placeholder. Note: vitamin D studies may have seasonal variation (winter recruitment harder).",
+        "predicted_difficulty": 46.0,
+        "screening_q_note": "Clearlight: age 30-65, device compliance 2-3x/week, Oura, no new supplements, no photosensitivity, no AIDS/HIV/immunocompromising, no active TB, no adverse light reaction, no photosensitizing meds, no recent tanning/UV, not pregnant, no severe dermatological conditions",
+        "difficulty_score": 42,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "actual_cpo": 0,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration",
+        "ad_spend": 0,
+        "outlier": false
+      },
+      "reward": {
+        "product_description": "Clearlight wellness light device (yours to keep)",
+        "product_value": 799,
+        "cash_value": 150,
+        "cash_notes": "$150+ via Heartbeats",
+        "other_rewards": [
+          "Personalized Oura insights"
+        ],
+        "total_participant_value": 949,
+        "keep_device": true,
+        "device_kept": "Clearlight wellness light device ($799)"
+      }
+    },
+    {
+      "study_id": "S018",
+      "study_name": "Berkeley Life Nitrate Supplementation (Female Sexual Function)",
+      "brand": "Berkeley Life",
+      "category": "sexual_health",
+      "file_ref": "Nitrate_Supplementation",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "active",
+          "placebo"
+        ],
+        "blinded": true,
+        "duration_days": 90,
+        "has_labs": true,
+        "has_shipped_product": true
+      },
+      "recruitment": {
+        "target_n": 70,
+        "actual_n_enrolled": 70,
+        "actual_n_onboarded": 70,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": null,
+        "target_age_min": 45,
+        "target_age_max": 70,
+        "target_gender": "female",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "stable_monogamous_relationship",
+          "sexually_active",
+          "FSFI_score_14.5_to_28.1"
+        ],
+        "key_exclusions": [
+          "pregnant",
+          "drug_alcohol_dependency",
+          "active_cancer",
+          "nitrate_meds",
+          "vaginal_infections"
+        ],
+        "scorecard_note": "100% onboarded. COMPLETE."
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": false,
+        "baseline_data_days_required": null,
+        "washout_period_days": null
+      },
+      "scoring_inputs": {
+        "sample_size": 70,
+        "study_type": "RCT",
+        "wearable": "Oura",
+        "screening_question_count": 20,
+        "screening_q_note": "20 questions including FSFI survey, demographics, medical stability, contraception, allergy, medication changes, vaginal health, prior trial history",
+        "difficulty_score": 73,
+        "difficulty_band": "Very Hard",
+        "cpo_estimate": "$30\u2013$60"
+      },
+      "actuals": {
+        "ad_spend": 2632.02,
+        "actual_cpo": 37.6,
+        "outlier": false,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration"
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": null,
+        "cash_value": null,
+        "cash_notes": null,
+        "other_rewards": [],
+        "total_participant_value": null,
+        "keep_device": null,
+        "reward_note": "No landing page available \u2014 reward data not extracted"
+      }
+    },
+    {
+      "study_id": "S019",
+      "study_name": "Better Sleep with NatPat",
+      "brand": "NatPat",
+      "category": "sleep_aromatherapy",
+      "file_ref": "NatPat",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "VEP",
+        "arms": [
+          "active"
+        ],
+        "blinded": false,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": true
+      },
+      "recruitment": {
+        "target_n": 25,
+        "actual_n_enrolled": 38,
+        "actual_n_onboarded": 25,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": 29,
+        "target_age_min": 18,
+        "target_age_max": null,
+        "target_gender": "all",
+        "target_location": "US",
+        "positive_inclusion_criteria": [
+          "Oura_owner",
+          "sleep_score_below_71"
+        ],
+        "key_exclusions": [
+          "pregnant",
+          "chronic_medical_condition",
+          "diagnosed_sleep_disorder",
+          "sleep_meds"
+        ],
+        "scorecard_note": "100% onboarded. COMPLETE in 29 days."
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 28,
+        "washout_period_days": 30,
+        "wearable_eligibility_condition": "sleep_score_below_71"
+      },
+      "scoring_inputs": {
+        "sample_size": 25,
+        "study_type": "VEP",
+        "wearable": "Oura",
+        "screening_question_count": 7,
+        "screening_q_note": "7 questions: age 18+, willing to use oil diffuser nightly 28 days, Oura owner, pregnant, chronic condition, diagnosed sleep disorder, sleep meds",
+        "difficulty_score": 34,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "ad_spend": 0,
+        "actual_cpo": 0,
+        "outlier": false,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration"
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": null,
+        "cash_value": null,
+        "cash_notes": null,
+        "other_rewards": [],
+        "total_participant_value": null,
+        "keep_device": null,
+        "reward_note": "No landing page available \u2014 reward data not extracted"
+      }
+    },
+    {
+      "study_id": "S020",
+      "study_name": "Quantum Upgrade",
+      "brand": "Quantum Upgrade",
+      "category": "energy_wellness",
+      "file_ref": "Quantum_Upgrade",
+      "status": "completed",
+      "report_available": false,
+      "design": {
+        "study_type": "RCT",
+        "arms": [
+          "active",
+          "control"
+        ],
+        "blinded": true,
+        "duration_days": 28,
+        "has_labs": false,
+        "has_shipped_product": false
+      },
+      "recruitment": {
+        "target_n": 35,
+        "actual_n_enrolled": 35,
+        "actual_n_onboarded": 35,
+        "onboard_rate_pct": 100.0,
+        "days_to_recruit": null,
+        "target_age_min": 18,
+        "target_age_max": 65,
+        "target_gender": "female",
+        "target_location": "US",
+        "positive_inclusion_criteria": [],
+        "key_exclusions": [
+          "pregnant",
+          "drug_alcohol_dependency",
+          "severe_medical_conditions",
+          "mood_prescription_meds"
+        ],
+        "scorecard_note": "100% onboarded. COMPLETE."
+      },
+      "wearable": {
+        "device": "Oura",
+        "multi_device_accepted": false,
+        "device_must_be_owned": true,
+        "baseline_data_days_required": 28,
+        "washout_period_days": 30
+      },
+      "scoring_inputs": {
+        "sample_size": 35,
+        "study_type": "RCT",
+        "wearable": "Oura",
+        "screening_question_count": 7,
+        "screening_q_note": "7 questions: age 18-65, pregnant, drug/alcohol, severe medical conditions, mood meds, prior quantum energy study, [1 additional]",
+        "difficulty_score": 32,
+        "difficulty_band": "Moderate",
+        "cpo_estimate": "$12\u2013$18"
+      },
+      "actuals": {
+        "ad_spend": 266.14,
+        "actual_cpo": 7.6,
+        "outlier": false,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Awaiting scorer.py calibration"
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": null,
+        "cash_value": null,
+        "cash_notes": null,
+        "other_rewards": [],
+        "total_participant_value": null,
+        "keep_device": null,
+        "reward_note": "No landing page available \u2014 reward data not extracted"
+      }
+    },
+    {
+      "study_id": "S021",
+      "study_name": "Leela Quantum",
+      "brand": "Leela Quantum",
+      "category": "energy_wellness",
+      "file_ref": null,
+      "status": "coming_soon",
+      "report_available": false,
+      "design": {
+        "study_type": null,
+        "arms": null,
+        "blinded": null,
+        "duration_days": null,
+        "has_labs": null,
+        "has_shipped_product": null
+      },
+      "recruitment": {
+        "target_n": 35,
+        "actual_n_enrolled": 0,
+        "actual_n_onboarded": 0,
+        "target_age_min": null,
+        "target_age_max": null,
+        "target_gender": null,
+        "target_location": "US",
+        "positive_inclusion_criteria": [],
+        "key_exclusions": [],
+        "scorecard_note": "Coming soon \u2014 organic/VEP"
+      },
+      "wearable": {
+        "device": null,
+        "device_must_be_owned": null
+      },
+      "scoring_inputs": {
+        "sample_size": 35,
+        "study_type": null,
+        "wearable": null,
+        "screening_question_count": null,
+        "screening_q_note": "No screening data available yet",
+        "difficulty_score": 8,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "ad_spend": 0,
+        "actual_cpo": null,
+        "outlier": false,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Coming soon \u2014 no data"
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": null,
+        "cash_value": null,
+        "cash_notes": null,
+        "other_rewards": [],
+        "total_participant_value": null,
+        "keep_device": null,
+        "reward_note": "No landing page available \u2014 reward data not extracted"
+      }
+    },
+    {
+      "study_id": "S022",
+      "study_name": "Cure Hydration",
+      "brand": "Cure Hydration",
+      "category": "hydration",
+      "file_ref": null,
+      "status": "coming_soon",
+      "report_available": false,
+      "design": {
+        "study_type": null,
+        "arms": null,
+        "blinded": null,
+        "duration_days": null,
+        "has_labs": null,
+        "has_shipped_product": null
+      },
+      "recruitment": {
+        "target_n": 70,
+        "actual_n_enrolled": 0,
+        "actual_n_onboarded": 0,
+        "target_age_min": null,
+        "target_age_max": null,
+        "target_gender": null,
+        "target_location": "US",
+        "positive_inclusion_criteria": [],
+        "key_exclusions": [],
+        "scorecard_note": "Coming soon \u2014 organic"
+      },
+      "wearable": {
+        "device": null,
+        "device_must_be_owned": null
+      },
+      "scoring_inputs": {
+        "sample_size": 70,
+        "study_type": null,
+        "wearable": null,
+        "screening_question_count": null,
+        "screening_q_note": "No screening data available yet",
+        "difficulty_score": 10,
+        "difficulty_band": "Easy",
+        "cpo_estimate": "$0\u2013$12"
+      },
+      "actuals": {
+        "ad_spend": 0,
+        "actual_cpo": null,
+        "outlier": false,
+        "actual_difficulty": null,
+        "actual_difficulty_flag": "Coming soon \u2014 no data"
+      },
+      "reward": {
+        "product_description": null,
+        "product_value": null,
+        "cash_value": null,
+        "cash_notes": null,
+        "other_rewards": [],
+        "total_participant_value": null,
+        "keep_device": null,
+        "reward_note": "No landing page available \u2014 reward data not extracted"
+      }
+    }
+  ],
+  "flags_summary": {
+    "missing_target_n": [
+      "S003",
+      "S004",
+      "S006",
+      "S007",
+      "S008",
+      "S009",
+      "S010",
+      "S011",
+      "S013",
+      "S014",
+      "S015",
+      "S016"
+    ],
+    "missing_screening_q_count": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S006",
+      "S007",
+      "S008",
+      "S009",
+      "S010",
+      "S011",
+      "S013",
+      "S014",
+      "S015",
+      "S016"
+    ],
+    "confirmed_screening_q_count": {
+      "S012": {
+        "count": 9,
+        "source": "IRB Appendix C"
+      },
+      "S017": {
+        "count": 13,
+        "source": "User context"
+      }
+    },
+    "missing_actual_cpo": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S006",
+      "S007",
+      "S009",
+      "S010",
+      "S011",
+      "S012",
+      "S013",
+      "S014",
+      "S015",
+      "S016",
+      "S017"
+    ],
+    "known_actual_cpo": {
+      "S005": {
+        "cpo": 71.88,
+        "caveat": "baseline_bug_may_inflate"
+      },
+      "S008": {
+        "cpo": 196.0,
+        "caveat": "highest_in_portfolio"
+      }
+    },
+    "wearable_conflicts": [
+      "S015"
+    ],
+    "not_yet_run": [
+      "S002"
+    ],
+    "studies_with_full_scoring": [
+      "S001",
+      "S005",
+      "S012",
+      "S017"
+    ],
+    "high_priority_data_gaps": [
+      "Individual CPO for all 15 studies other than S005 and S008",
+      "Target N for 12 studies",
+      "Screening question counts for 15 studies",
+      "Actual completers count for all studies",
+      "Duration for S015 (Tapping Solutions)"
+    ]
+  },
+  "portfolio_summary": {
+    "as_of_date": "2026-02-18",
+    "total_studies": 22,
+    "completed_recruitment": 13,
+    "currently_recruiting": 4,
+    "active_in_study": 4,
+    "coming_soon": 5,
+    "total_leads": 5975,
+    "total_joined": 1952,
+    "total_onboarded": 867,
+    "total_ad_spend": 22332.57,
+    "blended_cpo_all": 25.76,
+    "paid_cpo_excl_outliers": 18.6,
+    "paid_cpo_incl_outliers": 33.53,
+    "avg_days_to_recruit": 23.8,
+    "annual_target_2026": 4000,
+    "ytd_onboarded_2026": 440,
+    "weekly_rate_2026": 63,
+    "required_weekly_rate": 77,
+    "pace_status": "behind_pace",
+    "study_type_breakdown": {
+      "RCT": {
+        "count": 6,
+        "total_spend": 16063.81,
+        "total_onboarded": 587,
+        "avg_cpo": 27.37
+      },
+      "RWE_paid": {
+        "count": 2,
+        "total_spend": 6268.76,
+        "total_onboarded": 79,
+        "avg_cpo": 79.35
+      },
+      "VEP": {
+        "count": 7,
+        "total_spend": 0,
+        "total_onboarded": 163,
+        "avg_cpo": 0
+      },
+      "RWE_organic": {
+        "count": 2,
+        "total_spend": 0,
+        "total_onboarded": 38,
+        "avg_cpo": 0
+      }
+    },
+    "cpo_targets": {
+      "RCT_paid_target": 35.0,
+      "RCT_paid_actual": 27.37,
+      "RWE_paid_target": 25.0,
+      "RWE_paid_actual": 79.35,
+      "blended_target": 25.0,
+      "blended_actual": 25.76
+    },
+    "days_to_recruit_benchmarks": {
+      "small_20_to_40_participants": 21,
+      "medium_50_to_150_participants": 45,
+      "large_200_plus_participants": 75,
+      "organic_vep_any_size": "30-60 days"
+    },
+    "active_recruitment_projections": {
+      "total_remaining_participants": 177,
+      "est_cost_current_cpo_rates": 11958,
+      "est_cost_standard_cpo_18_60": 2790,
+      "best_case_total_spend_at_completion": 25123,
+      "worst_case_total_spend_at_completion": 34291
+    }
+  }
+}

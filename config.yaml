@@ -1,0 +1,136 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Reputable Health — Recruitment Difficulty Scoring Config
+# Adjust weights here; scorer.py reads this file at runtime.
+# Score range: 0–100
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── CALIBRATION ANCHORS ──────────────────────────────────────────────────────
+# Non-outlier paid studies used for calibration (CPO → difficulty mapping).
+# Outliers (Melatonin $71.88 bug-inflated, ProleevaMax $196 WHOOP+lab combo)
+# are excluded from calibration but still scored for reference.
+calibration_anchors:
+  - study_id: S020   # Quantum Upgrade
+    actual_cpo: 7.60
+  - study_id: S012   # Rootless
+    actual_cpo: 11.65
+  - study_id: S001   # EBF Pilot
+    actual_cpo: 13.09
+  - study_id: S002   # Coffee Study 3-arm
+    actual_cpo: 16.59
+  - study_id: S009   # Peptide
+    actual_cpo: 20.53
+  - study_id: S018   # Berkeley Life / Nitrate
+    actual_cpo: 37.60
+
+outliers:
+  - study_id: S005   # Melatonin — platform bug inflated CPO
+    actual_cpo: 71.88
+    reason: "~150 participants lost to baseline data bug, not true eligibility failure"
+  - study_id: S008   # ProleevaMax — WHOOP + chronic pain + labs triple friction
+    actual_cpo: 196.08
+    reason: "WHOOP device scarcity + must-have-condition + at-home labs compound multiplicatively"
+
+# ── DIFFICULTY BAND LABELS ───────────────────────────────────────────────────
+bands:
+  - {label: Easy,       min: 0,  max: 29,  cpo_est: "$0–$12",  notes: "Organic/VEP likely sufficient"}
+  - {label: Moderate,   min: 30, max: 44,  cpo_est: "$12–$18", notes: "Light paid spend, $10–20 CPO range"}
+  - {label: Hard,       min: 45, max: 59,  cpo_est: "$18–$30", notes: "Standard paid campaign required"}
+  - {label: Very Hard,  min: 60, max: 74,  cpo_est: "$30–$60", notes: "Heavy spend or specialized channels"}
+  - {label: Extreme,    min: 75, max: 100, cpo_est: "$60+",    notes: "Clinical population; consider fee-for-service panels"}
+
+# ── DIMENSION 1: SAMPLE SIZE ─────────────────────────────────────────────────
+# Larger N = harder to fill = more expensive at fixed CPO.
+# Max: 18 pts
+sample_size:
+  tiers:
+    - {max_n: 15,  pts: 2}
+    - {max_n: 30,  pts: 4}
+    - {max_n: 50,  pts: 6}
+    - {max_n: 80,  pts: 8}
+    - {max_n: 120, pts: 11}
+    - {max_n: 200, pts: 14}
+    - {max_n: 99999, pts: 18}
+
+# ── DIMENSION 2: SCREENING QUESTIONS ─────────────────────────────────────────
+# Proxy for eligibility funnel friction. Each question eliminates a % of applicants.
+# Max: 15 pts (capped — more Qs beyond 15 don't add more friction per unit)
+screening_questions:
+  pts_per_question: 1.0
+  max_pts: 15
+
+# ── DIMENSION 3: POSITIVE INCLUSION CRITERIA ─────────────────────────────────
+# The single biggest driver of CPO. "Must HAVE X" is far harder than "must NOT HAVE X".
+# Max: 18 pts
+positive_inclusion:
+  levels:
+    none:                  0   # General population, anyone qualifies
+    demographic:           4   # Age restriction, gender, US only
+    lifestyle_habit:       4   # Must be caffeine drinker, physically active, etc.
+    specific_score_req:   14   # Must score in specific range on validated scale (FSFI, MoCA, etc.)
+    medical_condition:    18   # Must have diagnosed/active condition (chronic pain, MCI, etc.)
+  # Note: use the HIGHEST applicable level. If a study has both demographic + condition, use medical_condition.
+
+# ── DIMENSION 4: WEARABLE FRICTION ───────────────────────────────────────────
+# Device ownership gates the entire eligible pool. WHOOP is ~10× rarer than Oura in our DB.
+# Max: 12 pts
+wearable:
+  device_pts:
+    none:          0
+    multi_device:  0   # Oura OR Fitbit OR WHOOP — any wearable owner eligible
+    Oura:          3
+    Garmin:        4
+    WHOOP:        11   # WHOOP dramatically shrinks eligible pool
+  baseline_pts:       # Additional friction for requiring historical data
+    0:  0
+    14: 1
+    28: 2
+    30: 2
+  wearable_eligibility_condition_pts: 1   # e.g., must have sleep score < 71
+
+# ── DIMENSION 5: STUDY DESIGN COMPLEXITY ─────────────────────────────────────
+# More complex designs = more participant burden = higher dropout risk.
+# Max: 10 pts
+study_design:
+  type_pts:
+    VEP:         0   # Verified Evidence Program — lightweight observational
+    RWE_organic: 2   # Real World Evidence, organic recruitment
+    RWE_paid:    5   # Real World Evidence, paid ads
+    RCT_2arm:    8   # Randomized Controlled Trial, 2 arms
+    RCT_3arm:   10   # RCT, 3 arms (higher protocol compliance burden)
+
+# ── DIMENSION 6: PARTICIPANT BURDEN ──────────────────────────────────────────
+# Longer/more demanding studies have higher dropout and lower conversion.
+# Max: 15 pts
+participant_burden:
+  duration_pts:
+    - {max_days: 30,   pts: 0}
+    - {max_days: 60,   pts: 3}
+    - {max_days: 90,   pts: 5}
+    - {max_days: 99999, pts: 7}
+  at_home_labs_pts:    6   # Blood draws, swabs — major barrier for many participants
+  shipped_product_pts: 2   # Compliance requirement (consume/use product as directed)
+
+# ── DIMENSION 7: CATEGORY SENSITIVITY ────────────────────────────────────────
+# Inverse appeal score — topics people are reluctant to discuss or that attract niche audiences.
+# Max: 12 pts
+category_sensitivity:
+  categories:
+    sleep_energy_coffee:         1   # Broad mass appeal, easy to self-identify
+    hydration_general_wellness:  2
+    skin_beauty:                 3
+    womens_longevity:            5
+    cognitive_health:            6
+    chronic_pain_inflammation:   9
+    sexual_health:              12   # Highly sensitive; lower self-disclosure rates
+
+# ── ORGANIC DIFFICULTY COMPOSITE ─────────────────────────────────────────────
+# Used for VEP / $0-spend studies where CPO = $0 and can't calibrate against cost.
+# Difficulty proxy = weighted blend of days-to-recruit + conversion rate.
+organic_difficulty:
+  days_weight: 0.4          # Weight on days-to-recruit signal
+  conversion_weight: 0.6    # Weight on join-to-onboard conversion rate
+  # Normalization reference points:
+  days_easy:   5            # Days → 0 difficulty
+  days_hard:  60            # Days → 100 difficulty
+  conv_easy:  0.80          # Conversion rate → 0 difficulty (80%+ = easy)
+  conv_hard:  0.25          # Conversion rate → 100 difficulty (25% or below = hard)
