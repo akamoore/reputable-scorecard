@@ -649,7 +649,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 var selectedFile = null;
 var lastResult   = null;
-var HARDCODED_API_KEY = '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';
 
 var fileInput    = document.getElementById('fileInput');
 var uploadZone   = document.getElementById('uploadZone');
@@ -751,13 +750,10 @@ async function extractText(file) {
 var PROMPT = 'You are a clinical research analyst for Reputable Health.\n\nExtract all recruitment-relevant information from this study document and return ONLY valid JSON with no markdown or preamble.\n\nUse this exact structure (null for unknown):\n\n{"study_name":"string","study_type":"RCT|RWE|VEP|null","category":"sleep_energy_coffee|hydration_general_wellness|skin_beauty|womens_longevity|cognitive_health|chronic_pain_inflammation|sexual_health","target_n":0,"n_arms":0,"duration_days":0,"target_age_min":0,"target_age_max":0,"target_gender":"all|female|male|null","wearable":"Oura|WHOOP|Fitbit|Garmin|multi_device|none|null","baseline_days_required":0,"has_at_home_labs":false,"has_shipped_product":false,"screening_question_count":0,"positive_inclusion_level":"none|demographic|lifestyle_habit|specific_score_req|medical_condition","positive_inclusion_description":"string","key_exclusions":["string"],"screening_questions":["string"],"recruitment_risk_flags":[{"severity":"red|yellow|green","factor":"string","detail":"string"}]}\n\nRED=eliminates >50% (diagnosed condition, WHOOP, narrow score range)\nYELLOW=eliminates 20-50% (Oura, age restriction, washout, lifestyle)\nGREEN=eliminates <20% (US residency, general health)\n\nFlag EVERY criterion. Return only JSON.\n\nDocument:\n';
 
 async function callClaude(text) {
-  var response = await fetch('https://api.anthropic.com/v1/messages', {
+  var response = await fetch('https://reputable-scorecard-proxy.katie-e7f.workers.dev', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': HARDCODED_API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
