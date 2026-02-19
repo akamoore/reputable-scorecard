@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reputable — Recruitment Scorecard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f0c;
+    --surface: #141510;
+    --surface2: #1a1c16;
+    --border: #252620;
+    --border2: #2e3028;
+    --lime: #c8f135;
+    --lime-dim: rgba(200,241,53,0.12);
+    --lime-border: rgba(200,241,53,0.2);
+    --text: #f0f0e8;
+    --text2: #8a8c7a;
+    --text3: #4a4c3a;
+    --amber: #e9a84c;
+    --red: #e05252;
+    --teal: #3ecfb2;
+    --radius: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Grid background like reputable.com */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,241,53,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,241,53,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Subtle glow in top-right */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200,241,53,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,15,12,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .nav-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--lime);
+    padding: 4px 12px;
+    border-radius: 99px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 80px 48px 64px;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lime);
+    border: 1px solid var(--lime-border);
+    background: var(--lime-dim);
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 28px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  h1 .lime { color: var(--lime); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text2);
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 0 48px 80px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── INPUTS ── */
+  .field-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+
+  input[type="password"],
+  input[type="number"] {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 11px 16px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input:focus {
+    border-color: var(--lime);
+    box-shadow: 0 0 0 3px rgba(200,241,53,0.08);
+  }
+
+  input::placeholder { color: var(--text3); }
+
+  /* ── UPLOAD ── */
+  .upload-zone {
+    border: 1.5px dashed var(--border2);
+    border-radius: var(--radius);
+    padding: 48px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: var(--surface);
+    margin-bottom: 16px;
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--lime);
+    background: var(--lime-dim);
+  }
+
+  .upload-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--lime-dim);
+    border: 1px solid var(--lime-border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 22px;
+  }
+
+  .upload-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .upload-hint  { font-size: 12px; color: var(--text2); }
+  .upload-hint strong { color: var(--text); }
+
+  .file-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--lime-dim);
+    border: 1px solid var(--lime-border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .file-badge-name {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--lime);
+    font-weight: 500;
+  }
+
+  .file-badge-clear {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    transition: color 0.2s;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .file-badge-clear:hover { color: var(--red); }
+
+  /* ── OPTIONS ── */
+  .options-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .option-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 16px;
+  }
+
+  .option-card label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text2); white-space: nowrap; }
+
+  .option-card input {
+    width: 72px;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+    font-size: 13px;
+    text-align: right;
+    color: var(--lime);
+    font-weight: 600;
+    flex: none;
+  }
+
+  /* ── RUN BUTTON ── */
+  .run-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--lime);
+    border: none;
+    border-radius: var(--radius);
+    color: var(--bg);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 32px;
+  }
+
+  .run-btn:hover:not(:disabled) {
+    background: #d6f54a;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(200,241,53,0.2);
+  }
+
+  .run-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── PROGRESS ── */
+  .progress {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: none;
+  }
+
+  .progress.visible { display: block; }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: 13px;
+    color: var(--text3);
+    transition: color 0.3s;
+  }
+
+  .progress-step.active { color: var(--text); }
+  .progress-step.done   { color: var(--lime); }
+
+  .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); flex-shrink: 0; transition: background 0.3s; }
+  .progress-step.active .step-dot { background: var(--lime); animation: pulse 1.2s infinite; }
+  .progress-step.done   .step-dot { background: var(--lime); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  /* ── ERROR ── */
+  .error-box {
+    background: rgba(224,82,82,0.08);
+    border: 1px solid rgba(224,82,82,0.25);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #f97070;
+    font-family: 'JetBrains Mono', monospace;
+    display: none;
+  }
+
+  .error-box.visible { display: block; }
+
+  /* ── SCORECARD ── */
+  .scorecard { display: none; animation: rise 0.5s ease; }
+  .scorecard.visible { display: block; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── META GRID ── */
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .meta-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .ml { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .mv { font-size: 14px; font-weight: 600; color: var(--text); }
+
+  /* ── SCORE ── */
+  .score-hero { display: flex; align-items: flex-start; gap: 32px; margin-bottom: 24px; }
+
+  .score-num-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .score-num {
+    font-size: 88px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .score-denom { font-size: 11px; color: var(--text3); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+
+  .score-info { flex: 1; padding-top: 12px; }
+  .score-band { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 8px; }
+  .score-desc { font-size: 13px; color: var(--text2); }
+
+  .score-track { height: 5px; background: var(--surface2); border-radius: 99px; overflow: hidden; border: 1px solid var(--border); }
+  .score-fill  { height: 100%; border-radius: 99px; transition: width 0.9s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+
+  /* ── PROJECTIONS ── */
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .proj-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .proj-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+  .proj-val   { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
+  .proj-sub   { font-size: 11px; color: var(--text3); }
+
+  /* ── BREAKDOWN ── */
+  .breakdown-row {
+    display: grid;
+    grid-template-columns: 170px 1fr 60px;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breakdown-row:last-child { border-bottom: none; }
+
+  .bd-dim  { font-size: 12px; font-weight: 500; color: var(--text2); }
+  .bd-track{ height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .bd-fill { height: 100%; border-radius: 99px; background: var(--lime); opacity: 0.6; }
+  .bd-pts  { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text3); text-align: right; }
+  .bd-note { grid-column: 2 / 4; font-size: 11px; color: var(--text3); margin-top: -4px; padding-bottom: 4px; }
+
+  /* ── FLAGS ── */
+  .flag { border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; border: 1px solid; }
+  .flag.red    { background: rgba(224,82,82,0.06);  border-color: rgba(224,82,82,0.2);  }
+  .flag.yellow { background: rgba(233,168,76,0.06); border-color: rgba(233,168,76,0.2); }
+  .flag.green  { background: rgba(62,207,178,0.06); border-color: rgba(62,207,178,0.2); }
+
+  .flag-hdr    { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .flag-factor { font-size: 13px; font-weight: 700; }
+
+  .flag.red    .flag-factor { color: #f97070; }
+  .flag.yellow .flag-factor { color: var(--amber); }
+  .flag.green  .flag-factor { color: var(--teal); }
+
+  .flag-detail { font-size: 12px; color: var(--text2); line-height: 1.5; padding-left: 22px; }
+
+  /* ── QUESTIONS ── */
+  .q-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .q-item {
+    display: flex;
+    gap: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .q-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text3); flex-shrink: 0; padding-top: 1px; min-width: 20px; }
+
+  /* ── SAVE BUTTON ── */
+  .save-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .save-btn:hover { border-color: var(--lime); color: var(--lime); background: var(--lime-dim); }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Reputable</div>
+  <span class="nav-tag">Recruitment Scorecard</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Internal Tool</div>
+  <h1>Predict recruitment<br><span class="lime">before you launch.</span></h1>
+  <p class="hero-sub">Upload an IRB protocol or study design document. Get a difficulty score, time estimate, ad spend projection, and every eligibility risk flagged — instantly.</p>
+</div>
+
+<div class="main">
+
+  <div class="upload-zone" id="uploadZone">
+    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" />
+    <div class="upload-icon">📄</div>
+    <div class="upload-title">Drop your study document here</div>
+    <div class="upload-hint">or click to browse &nbsp;·&nbsp; <strong>PDF, DOCX, TXT</strong></div>
+  </div>
+
+  <div class="file-badge" id="fileSelected" style="display:none">
+    <span style="font-size:18px">✅</span>
+    <span class="file-badge-name" id="fileName"></span>
+    <button class="file-badge-clear" id="clearFile">×</button>
+  </div>
+
+  <div class="options-row">
+    <div class="option-card">
+      <label>Target N override</label>
+      <input type="number" id="targetN" placeholder="e.g. 50" min="1" />
+    </div>
+  </div>
+
+  <button class="run-btn" id="runBtn" disabled>Generate Scorecard</button>
+
+  <div class="progress" id="progress">
+    <div class="progress-step" id="step1"><div class="step-dot"></div>Extracting document text</div>
+    <div class="progress-step" id="step2"><div class="step-dot"></div>Sending to Claude for analysis</div>
+    <div class="progress-step" id="step3"><div class="step-dot"></div>Running scoring algorithm</div>
+    <div class="progress-step" id="step4"><div class="step-dot"></div>Building scorecard</div>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="scorecard" id="scorecard">
+
+    <div class="card">
+      <div class="section-label">Study Overview</div>
+      <div class="meta-grid" id="studyMeta"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Difficulty Score</div>
+      <div class="score-hero">
+        <div class="score-num-wrap">
+          <div class="score-num" id="scoreNum">--</div>
+          <div class="score-denom">out of 100</div>
+        </div>
+        <div class="score-info">
+          <div class="score-band" id="bandLabel">--</div>
+          <div class="score-desc" id="bandDesc">--</div>
+        </div>
+      </div>
+      <div class="score-track"><div class="score-fill" id="scoreBarFill"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Recruitment Projections</div>
+      <div class="proj-grid" id="projGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Score Breakdown</div>
+      <div id="breakdownRows"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Eligibility Risk Flags</div>
+      <div id="flagsList"></div>
+    </div>
+
+    <div class="card" id="questionsCard">
+      <div class="section-label">Screening Questions Extracted</div>
+      <div class="q-list" id="questionsList"></div>
+    </div>
+
+    <button class="save-btn" id="saveBtn">&#8595; Save Scorecard as Text File</button>
+
+  </div>
+</div>
+
+<div class="footer">Reputable Health &nbsp;&middot;&nbsp; Internal Use Only &nbsp;&middot;&nbsp; 2026</div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+var selectedFile = null;
+var lastResult   = null;
+var HARDCODED_API_KEY = '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';
+
+var fileInput    = document.getElementById('fileInput');
+var uploadZone   = document.getElementById('uploadZone');
+var fileSelected = document.getElementById('fileSelected');
+var fileNameEl   = document.getElementById('fileName');
+var clearFileBtn = document.getElementById('clearFile');
+var runBtn       = document.getElementById('runBtn');
+var targetNInput = document.getElementById('targetN');
+var progressEl   = document.getElementById('progress');
+var errorBox     = document.getElementById('errorBox');
+var scorecardEl  = document.getElementById('scorecard');
+
+function setFile(file) {
+  selectedFile = file;
+  fileNameEl.textContent = file.name;
+  fileSelected.style.display = 'flex';
+  uploadZone.style.display = 'none';
+  updateRunBtn();
+}
+
+function clearFile() {
+  selectedFile = null;
+  fileInput.value = '';
+  fileSelected.style.display = 'none';
+  uploadZone.style.display = 'block';
+  updateRunBtn();
+}
+
+function updateRunBtn() {
+  runBtn.disabled = !selectedFile;
+}
+
+fileInput.addEventListener('change', function(e) { if (e.target.files[0]) setFile(e.target.files[0]); });
+clearFileBtn.addEventListener('click', clearFile);
+uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', function() { uploadZone.classList.remove('drag-over'); });
+uploadZone.addEventListener('drop', function(e) {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+});
+
+function setStep(n, state) { document.getElementById('step' + n).className = 'progress-step ' + state; }
+
+function showProgress() {
+  progressEl.classList.add('visible');
+  [1,2,3,4].forEach(function(n) { setStep(n, ''); });
+  errorBox.classList.remove('visible');
+  scorecardEl.classList.remove('visible');
+}
+
+function showError(msg) {
+  errorBox.textContent = msg;
+  errorBox.classList.add('visible');
+  progressEl.classList.remove('visible');
+}
+
+async function extractText(file) {
+  var name = file.name.toLowerCase();
+  if (name.endsWith('.txt')) return await file.text();
+  if (name.endsWith('.pdf')) {
+    var buf = await file.arrayBuffer();
+    try {
+      var pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      var pages = [];
+      for (var i = 1; i <= pdf.numPages; i++) {
+        var page = await pdf.getPage(i);
+        var content = await page.getTextContent();
+        pages.push(content.items.map(function(item) { return item.str; }).join(' '));
+      }
+      var text = pages.join('\n\n').trim();
+      if (text.length > 100) return text;
+    } catch(e) {}
+    try {
+      var mod = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+      var zip = await mod.default.loadAsync(buf);
+      var txtFiles = Object.keys(zip.files).filter(function(n) { return n.endsWith('.txt'); }).sort();
+      if (txtFiles.length > 0) {
+        var parts = await Promise.all(txtFiles.map(function(n) { return zip.files[n].async('text'); }));
+        return parts.join('\n');
+      }
+    } catch(e) {}
+    throw new Error('Could not extract text from this PDF.');
+  }
+  if (name.endsWith('.docx')) {
+    var buf2 = await file.arrayBuffer();
+    try {
+      var mod2 = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+      var zip2 = await mod2.default.loadAsync(buf2);
+      if (zip2.files['word/document.xml']) {
+        var xml = await zip2.files['word/document.xml'].async('text');
+        return xml.replace(/<[^>]+>/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      }
+    } catch(e) {}
+  }
+  throw new Error('Unsupported file format. Please use PDF, DOCX, or TXT.');
+}
+
+var PROMPT = 'You are a clinical research analyst for Reputable Health.\n\nExtract all recruitment-relevant information from this study document and return ONLY valid JSON with no markdown or preamble.\n\nUse this exact structure (null for unknown):\n\n{"study_name":"string","study_type":"RCT|RWE|VEP|null","category":"sleep_energy_coffee|hydration_general_wellness|skin_beauty|womens_longevity|cognitive_health|chronic_pain_inflammation|sexual_health","target_n":0,"n_arms":0,"duration_days":0,"target_age_min":0,"target_age_max":0,"target_gender":"all|female|male|null","wearable":"Oura|WHOOP|Fitbit|Garmin|multi_device|none|null","baseline_days_required":0,"has_at_home_labs":false,"has_shipped_product":false,"screening_question_count":0,"positive_inclusion_level":"none|demographic|lifestyle_habit|specific_score_req|medical_condition","positive_inclusion_description":"string","key_exclusions":["string"],"screening_questions":["string"],"recruitment_risk_flags":[{"severity":"red|yellow|green","factor":"string","detail":"string"}]}\n\nRED=eliminates >50% (diagnosed condition, WHOOP, narrow score range)\nYELLOW=eliminates 20-50% (Oura, age restriction, washout, lifestyle)\nGREEN=eliminates <20% (US residency, general health)\n\nFlag EVERY criterion. Return only JSON.\n\nDocument:\n';
+
+async function callClaude(text) {
+  var response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': HARDCODED_API_KEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      messages: [{ role: 'user', content: PROMPT + text.slice(0, 50000) }]
+    })
+  });
+  if (!response.ok) {
+    var err = await response.json().catch(function() { return {}; });
+    throw new Error((err.error && err.error.message) || ('API error ' + response.status));
+  }
+  var data = await response.json();
+  var raw = data.content[0].text.trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
+  return JSON.parse(raw);
+}
+
+var CFG = {
+  bands: [
+    { label:'Easy',      min:0,  max:29,  cpo:'$0-$12',  note:'Organic/VEP likely sufficient',       color:'#c8f135' },
+    { label:'Moderate',  min:30, max:44,  cpo:'$12-$18', note:'Light paid spend recommended',         color:'#3ecfb2' },
+    { label:'Hard',      min:45, max:59,  cpo:'$18-$30', note:'Standard paid campaign required',      color:'#e9a84c' },
+    { label:'Very Hard', min:60, max:74,  cpo:'$30-$60', note:'Heavy spend or specialized channels',  color:'#e07a5f' },
+    { label:'Extreme',   min:75, max:100, cpo:'$60+',    note:'Clinical population, consider panels', color:'#e05252' }
+  ],
+  sampleSize: [{max:15,pts:2},{max:30,pts:4},{max:50,pts:6},{max:80,pts:8},{max:120,pts:11},{max:200,pts:14},{max:99999,pts:18}],
+  wearable:   { none:0, multi_device:0, Oura:3, Garmin:4, WHOOP:11, Fitbit:2 },
+  baseline:   [[0,0],[14,1],[28,2],[30,2]],
+  inclusion:  { none:0, demographic:4, lifestyle_habit:4, specific_score_req:14, medical_condition:18 },
+  designType: { VEP:0, RWE_organic:2, RWE_paid:5, RCT_2arm:8, RCT_3arm:10 },
+  duration:   [{max:30,pts:0},{max:60,pts:3},{max:90,pts:5},{max:99999,pts:7}],
+  category:   { sleep_energy_coffee:1, hydration_general_wellness:2, skin_beauty:3, womens_longevity:5, cognitive_health:6, chronic_pain_inflammation:9, sexual_health:12 }
+};
+
+function scoreProfile(p, nOver) {
+  var n    = nOver || p.target_n;
+  var sq   = p.screening_question_count || 0;
+  var inc  = p.positive_inclusion_level || 'none';
+  var cat  = (p.category || '').toLowerCase();
+  var dev  = p.wearable || 'none';
+  var bl   = p.baseline_days_required || 0;
+  var dur  = p.duration_days || 0;
+  var arms = p.n_arms || 1;
+  var type = p.study_type || 'VEP';
+
+  var nPts = 0;
+  if (n) for (var i = 0; i < CFG.sampleSize.length; i++) { if (n <= CFG.sampleSize[i].max) { nPts = CFG.sampleSize[i].pts; break; } }
+  var sqPts  = Math.min(sq * 1.0, 15);
+  var incPts = CFG.inclusion[inc] || 0;
+  var devPts = (CFG.wearable[dev] !== undefined) ? CFG.wearable[dev] : 3;
+  var blPts  = 0;
+  for (var j = 0; j < CFG.baseline.length; j++) { if (bl >= CFG.baseline[j][0]) blPts = CFG.baseline[j][1]; }
+  var wPts   = Math.min(devPts + blPts, 12);
+  var dKey   = type === 'RCT' ? (arms >= 3 ? 'RCT_3arm' : 'RCT_2arm') : type === 'RWE' ? 'RWE_paid' : 'VEP';
+  var dPts   = CFG.designType[dKey] || 0;
+  var durPts = 0;
+  for (var d = 0; d < CFG.duration.length; d++) { if (dur <= CFG.duration[d].max) { durPts = CFG.duration[d].pts; break; } }
+  var bPts   = durPts + (p.has_at_home_labs ? 6 : 0) + (p.has_shipped_product ? 2 : 0);
+  var cPts   = CFG.category[cat] || 1;
+  var total  = Math.max(0, Math.min(100, Math.round(nPts + sqPts + incPts + wPts + dPts + bPts + cPts)));
+  var band   = CFG.bands[CFG.bands.length - 1];
+  for (var b = 0; b < CFG.bands.length; b++) { if (total >= CFG.bands[b].min && total <= CFG.bands[b].max) { band = CFG.bands[b]; break; } }
+  return {
+    total: total, band: band,
+    breakdown: [
+      { dim:'Sample Size',         pts:nPts,   max:18, note:n ? ('N = ' + n) : 'N unknown' },
+      { dim:'Screening Questions', pts:sqPts,  max:15, note:sq + ' questions' },
+      { dim:'Positive Inclusion',  pts:incPts, max:18, note:p.positive_inclusion_description || inc },
+      { dim:'Wearable Friction',   pts:wPts,   max:12, note:dev + (bl > 0 ? (' + ' + bl + 'd baseline') : '') },
+      { dim:'Study Design',        pts:dPts,   max:10, note:dKey + ' (' + arms + ' arm' + (arms > 1 ? 's' : '') + ')' },
+      { dim:'Participant Burden',  pts:bPts,   max:15, note:[dur ? (dur + 'd') : null, p.has_at_home_labs ? 'labs' : null, p.has_shipped_product ? 'product' : null].filter(Boolean).join(', ') },
+      { dim:'Category',            pts:cPts,   max:12, note:cat || 'unknown' }
+    ]
+  };
+}
+
+function estimateTimeAndSpend(profile, score, band, nOver) {
+  var n = nOver || profile.target_n;
+  var base = !n ? 45 : n <= 40 ? 21 : n <= 150 ? 45 : 75;
+  var tLo, tHi;
+  if      (score < 30) { tLo = base*0.8; tHi = base*1.5; }
+  else if (score < 45) { tLo = base*0.8; tHi = base*1.1; }
+  else if (score < 60) { tLo = base*1.0; tHi = base*1.4; }
+  else if (score < 75) { tLo = base*1.3; tHi = base*2.0; }
+  else                 { tLo = base*1.8; tHi = base*3.0; }
+  tLo = Math.max(5, Math.round(tLo));
+  tHi = Math.max(tLo + 7, Math.round(tHi));
+  var needsAds = score >= 30;
+  var spendLo = 0, spendHi = 0;
+  if (needsAds && n) {
+    var cm = { Moderate:[12,18], Hard:[18,30], 'Very Hard':[30,60], Extreme:[60,120] };
+    var fm = { Moderate:[0.2,0.4], Hard:[0.5,0.7], 'Very Hard':[0.7,0.9], Extreme:[0.9,1.0] };
+    var cr = cm[band.label] || [18,30];
+    var fr = fm[band.label] || [0.5,0.7];
+    spendLo = Math.round(cr[0] * n * fr[0]);
+    spendHi = Math.round(cr[1] * n * fr[1]);
+  }
+  return { tLo:tLo, tHi:tHi, needsAds:needsAds, spendLo:spendLo, spendHi:spendHi };
+}
+
+function renderScorecard(profile, sr, est, nOver) {
+  var n   = nOver || profile.target_n;
+  var pop = [];
+  if (profile.target_gender && profile.target_gender !== 'all') pop.push(profile.target_gender);
+  if (profile.target_age_min && profile.target_age_max) pop.push('ages ' + profile.target_age_min + '-' + profile.target_age_max);
+  else if (profile.target_age_min) pop.push('ages ' + profile.target_age_min + '+');
+
+  document.getElementById('studyMeta').innerHTML = [
+    { l:'Study Name', v:profile.study_name || 'Unknown' },
+    { l:'Type',       v:(profile.study_type || '-') + ' · ' + (profile.n_arms || 1) + ' arm(s)' },
+    { l:'Target N',   v:n ? String(n) : 'Unknown' },
+    { l:'Duration',   v:profile.duration_days ? (profile.duration_days + ' days') : 'Unknown' },
+    { l:'Population', v:pop.length ? pop.join(', ') : 'All adults' },
+    { l:'Wearable',   v:profile.wearable || 'None required' }
+  ].map(function(item) {
+    return '<div class="meta-item"><div class="ml">' + item.l + '</div><div class="mv">' + item.v + '</div></div>';
+  }).join('');
+
+  document.getElementById('scoreNum').textContent = sr.total;
+  document.getElementById('scoreNum').style.color = sr.band.color;
+  document.getElementById('bandLabel').textContent = sr.band.label;
+  document.getElementById('bandLabel').style.color = sr.band.color;
+  document.getElementById('bandDesc').textContent  = sr.band.note + ' · Est. CPO ' + sr.band.cpo;
+
+  setTimeout(function() {
+    document.getElementById('scoreBarFill').style.width      = sr.total + '%';
+    document.getElementById('scoreBarFill').style.background = sr.band.color;
+  }, 100);
+
+  document.getElementById('projGrid').innerHTML =
+    '<div class="proj-item">' +
+      '<div class="proj-label">Days to Recruit</div>' +
+      '<div class="proj-val" style="color:' + sr.band.color + '">' + est.tLo + '-' + est.tHi + '</div>' +
+      '<div class="proj-sub">estimated range</div>' +
+    '</div>' +
+    '<div class="proj-item">' +
+      '<div class="proj-label">Ad Spend</div>' +
+      '<div class="proj-val" style="color:' + (est.needsAds ? '#e9a84c' : '#c8f135') + '">' + (est.needsAds ? 'Yes' : 'No') + '</div>' +
+      '<div class="proj-sub">' + (est.needsAds ? 'required' : 'organic sufficient') + '</div>' +
+    '</div>' +
+    '<div class="proj-item">' +
+      '<div class="proj-label">Est. Spend</div>' +
+      '<div class="proj-val" style="color:' + sr.band.color + '">' + (est.needsAds ? ('$' + est.spendLo.toLocaleString()) : '$0') + '</div>' +
+      '<div class="proj-sub">' + (est.needsAds ? ('- $' + est.spendHi.toLocaleString()) : 'no paid needed') + '</div>' +
+    '</div>';
+
+  document.getElementById('breakdownRows').innerHTML = sr.breakdown.map(function(row) {
+    return '<div class="breakdown-row">' +
+      '<div class="bd-dim">' + row.dim + '</div>' +
+      '<div class="bd-track"><div class="bd-fill" style="width:' + Math.round(row.pts/row.max*100) + '%"></div></div>' +
+      '<div class="bd-pts">' + Math.round(row.pts) + '/' + row.max + '</div>' +
+      '<div class="bd-note">' + row.note + '</div>' +
+    '</div>';
+  }).join('');
+
+  var flags  = (profile.recruitment_risk_flags || []).slice().sort(function(a,b) { return ['red','yellow','green'].indexOf(a.severity) - ['red','yellow','green'].indexOf(b.severity); });
+  var icons  = { red:'🔴', yellow:'🟡', green:'🟢' };
+  document.getElementById('flagsList').innerHTML = flags.length ? flags.map(function(f) {
+    return '<div class="flag ' + f.severity + '"><div class="flag-hdr"><span>' + icons[f.severity] + '</span><span class="flag-factor">' + f.factor + '</span></div><div class="flag-detail">' + f.detail + '</div></div>';
+  }).join('') : '<p style="color:var(--text3);font-size:13px">No flags identified</p>';
+
+  var qs = profile.screening_questions || [];
+  document.getElementById('questionsCard').style.display = qs.length ? 'block' : 'none';
+  document.getElementById('questionsList').innerHTML = qs.map(function(q,i) {
+    return '<div class="q-item"><span class="q-num">' + (i+1) + '.</span><span>' + q + '</span></div>';
+  }).join('');
+
+  scorecardEl.classList.add('visible');
+  scorecardEl.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+document.getElementById('saveBtn').addEventListener('click', function() {
+  if (!lastResult) return;
+  var p = lastResult.profile, sr = lastResult.scoreResult, est = lastResult.estimates, n = lastResult.targetN || lastResult.profile.target_n;
+  var lines = ['REPUTABLE HEALTH - RECRUITMENT SCORECARD','='.repeat(60),'Study: '+(p.study_name||'Unknown'),'Type: '+(p.study_type||'-')+' · '+(p.n_arms||1)+' arm(s)','Target N: '+(n||'Unknown'),'Duration: '+(p.duration_days||'?')+' days','','DIFFICULTY SCORE: '+sr.total+'/100 - '+sr.band.label.toUpperCase(),sr.band.note,'','-'.repeat(60),'SCORE BREAKDOWN'];
+  sr.breakdown.forEach(function(r) { lines.push('  '+r.dim.padEnd(24)+String(Math.round(r.pts)).padStart(3)+' / '+r.max+'  '+r.note); });
+  lines.push('','-'.repeat(60),'RECRUITMENT PROJECTIONS','  Est. days: '+est.tLo+'-'+est.tHi,'  Ad spend: '+(est.needsAds?'YES':'NO'));
+  if (est.needsAds) lines.push('  Est. spend: $'+est.spendLo.toLocaleString()+' - $'+est.spendHi.toLocaleString());
+  lines.push('','-'.repeat(60),'ELIGIBILITY RISK FLAGS');
+  (p.recruitment_risk_flags||[]).forEach(function(f) { lines.push('\n  '+(f.severity==='red'?'🔴':f.severity==='yellow'?'🟡':'🟢')+' '+f.factor+'\n     '+f.detail); });
+  lines.push('','-'.repeat(60),'SCREENING QUESTIONS ('+(p.screening_questions||[]).length+')');
+  (p.screening_questions||[]).forEach(function(q,i) { lines.push('  '+(i+1)+'. '+q); });
+  lines.push('','='.repeat(60),'Generated: '+new Date().toLocaleDateString());
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type:'text/plain' }));
+  a.download = 'scorecard_'+(p.study_name||'study').replace(/[^a-z0-9]/gi,'_').toLowerCase()+'.txt';
+  a.click();
+});
+
+runBtn.addEventListener('click', async function() {
+  var targetN = parseInt(targetNInput.value) || null;
+  if (!selectedFile) return;
+  runBtn.disabled = true;
+  showProgress();
+  try {
+    setStep(1,'active'); var text = await extractText(selectedFile); setStep(1,'done');
+    setStep(2,'active'); var profile = await callClaude(text); if (targetN) profile.target_n = targetN; setStep(2,'done');
+    setStep(3,'active'); var sr = scoreProfile(profile, targetN); var est = estimateTimeAndSpend(profile, sr.total, sr.band, targetN); setStep(3,'done');
+    setStep(4,'active'); renderScorecard(profile, sr, est, targetN); lastResult = { profile:profile, scoreResult:sr, estimates:est, targetN:targetN }; setStep(4,'done');
+    setTimeout(function() { progressEl.classList.remove('visible'); }, 600);
+  } catch(err) {
+    showError(err.message || 'An unexpected error occurred.');
+  } finally {
+    runBtn.disabled = false;
+    updateRunBtn();
+  }
+});
+</script>
+</body>
+</html>
